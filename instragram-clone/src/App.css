@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+}
+.App {
+  /* this will be base canvas */
+  background-color:#fafafa;
+  /* background-color:black; */
+  height: vh;
+}
+
+.app__headerImage {
+  background-color: white;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+  object-fit: contain;
+}
+
+.app__signup {
+  display: flex;
+  flex-direction: column;
+}
