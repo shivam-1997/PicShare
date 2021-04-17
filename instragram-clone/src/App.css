@@ -8,14 +8,40 @@
   height: vh;
 }
 
-.app__headerImage {
+.app__header {
+  position: sticky;
+  top:0;
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   border-bottom: 1px solid lightgray;
   object-fit: contain;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.app__headerImage {
+  object-fit: contain;
+}
+
+.app__posts{
+  padding: 12px;
+  content: center;
 }
 
 .app__signup {
   display: flex;
   flex-direction: column;
+}
+
+.app__navigation {
+  object-fit: contain;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  padding: 10px;
+  border-top: 1px solid lightgray;
+  object-fit: contain;
+  z-index: 1;
 }
