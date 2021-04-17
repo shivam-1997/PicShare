@@ -1,9 +1,11 @@
 .post{
-    max-width: 500px;
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
     background-color: white;
     border: 1px solid lightgray;
     /* margin-bottom: will separate out posts; */
-    margin-bottom: 45px;
+    margin-bottom: 35px;
 }
 .post__image {
     width: 100% ;
@@ -14,7 +16,7 @@
 
 .post__text {
     font-weight: normal;
-    padding: 15px 10px
+    padding: 10px 10px;
 }
 
 .post__header{
@@ -25,4 +27,31 @@
 
 .post__avatar{
     margin-right: 10px;
+}
+
+.post__comments{
+    font-weight: normal;
+    padding: 5px 10px
+}
+
+.post__commentBox{
+    display: flex;
+    margin-top: 10px;
+}
+
+.post__input{
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-top: 1px solid lightgray;
+}
+
+.post__button{
+    flex: 0;
+    border: none;
+    border-top: 1px solid lightgray;
+    /* color: #6082a3; */
+
+    background-color: transparent;
+
 }
