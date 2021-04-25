@@ -184,10 +184,9 @@ function App() {
         src="https://i.imgur.com/zqpwkLQ.png"
         alt=""
        />
-       
-       {
+      {
         user ? (
-          <Button onClick={() => auth.signOut()}>SignOut</Button>
+        <Button onClick={() => auth.signOut()}>SignOut</Button>
         ):
         (
           <div className="app__logincontainer">
@@ -195,32 +194,34 @@ function App() {
             <Button onClick={() => setSignInOpen(true)}>SignIn</Button>
           </div>
         )
-       }
+      }
       </div>
-      {/* Status */}
-
-      {/* Posts */}
-      <div className="app__posts">
-        {
-          posts.map(({id, post}) => 
-          (<Post
-            key = {id} 
-            postId = {id}
-            username={post.username}
-            imageUrl={post.imageUrl}
-            avatarImageUrl={post.avatarImageUrl}
-            caption={post.caption}
-            user={user}
-            timestamp={post.timestamp}
-            />)
-          )
-        }
-      </div>
+      {
+        user?(
+          <div className="app__posts">
+          {
+            posts.map(({id, post}) => 
+            (<Post
+              key = {id} 
+              postId = {id}
+              username={post.username}
+              imageUrl={post.imageUrl}
+              avatarImageUrl={post.avatarImageUrl}
+              caption={post.caption}
+              user={user}
+              timestamp={post.timestamp}
+              />)
+            )
+          }
+          </div>
+        ): (null)
+      }
 
       {/* Navigation bar */}
       <div className="app__navigation">
         <ImageUpload user={user}/>
       </div>
+
     </div>   
   );
 }
