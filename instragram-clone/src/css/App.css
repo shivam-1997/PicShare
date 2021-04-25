@@ -4,7 +4,7 @@
 .App {
   /* this will be base canvas */
   background-color:#fafafa;
-  /* background-color:black; */
+  /* background-color:lightslategrey; */
   height: vh;
 }
 
@@ -18,10 +18,13 @@
   display: flex;
   justify-content: space-between;
   z-index: 1;
+  align-content: center;
 }
 
 .app__headerImage {
   object-fit: contain;
+  /* font-family: "Lucida Console", "Courier New", monospace; */
+  /* font-family:  fantasy; */
 }
 
 .app__posts{
@@ -36,7 +39,7 @@
 
 .app__navigation {
   object-fit: contain;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
   background-color: white;

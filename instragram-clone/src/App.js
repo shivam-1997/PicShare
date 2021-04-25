@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import './App.css';
+import './css/App.css';
 import Post from './Post';
 import {auth, db} from './firebase.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
 import ImageUpload from './ImageUpload';
+
 
 function getModalStyle() {
   const top = 50;
@@ -68,14 +69,12 @@ function App() {
             // user has logged in
             console.log(authUser);
             setUser(authUser); //persistent, keeps you login, survives refresh, uses cookie trcaking
-
           }
           else{
             // user has not logged in
             setUser(null)
           }
         })
-
         return () =>{
           // perform some cleanup actions
           // will avoid duplicates
@@ -106,8 +105,8 @@ function App() {
         .catch((error)=> alert(error.message));
     
     setSignInOpen(false);
-    }
-      
+  }
+  
   return (
     <div className="App">
       
@@ -185,54 +184,43 @@ function App() {
         src="https://i.imgur.com/zqpwkLQ.png"
         alt=""
        />
+       
        {
         user ? (
-          //yes
-          <Button onClick={() => auth.signOut()}>Log out</Button>
-        )://or
+          <Button onClick={() => auth.signOut()}>SignOut</Button>
+        ):
         (
           <div className="app__logincontainer">
             <Button onClick={() => setSignUpOpen(true)}>SignUp</Button>
-            <Button onClick={() => setSignInOpen(true)}>LogIn</Button>
+            <Button onClick={() => setSignInOpen(true)}>SignIn</Button>
           </div>
         )
        }
       </div>
-      
+      {/* Status */}
+
       {/* Posts */}
       <div className="app__posts">
-      {
-        posts.map(({id, post}) => 
-        (<Post
-          key = {id} 
-          postId = {id}
-          username={post.username}
-          imageUrl={post.imageUrl}
-          avatarImageUrl={post.avatarImageUrl}
-          caption={post.caption}
-          user={user}
-          />)
+        {
+          posts.map(({id, post}) => 
+          (<Post
+            key = {id} 
+            postId = {id}
+            username={post.username}
+            imageUrl={post.imageUrl}
+            avatarImageUrl={post.avatarImageUrl}
+            caption={post.caption}
+            user={user}
+            timestamp={post.timestamp}
+            />)
           )
-      }
-
+        }
       </div>
+
+      {/* Navigation bar */}
       <div className="app__navigation">
-      {
-        user?.displayName 
-        ?(
-          // <button onClick={
-            <ImageUpload username={user.displayName} />
-          // }
-          // >Upload</button>
-        )
-        :(
-          <center>
-            <h4>Login to post</h4>
-          </center>
-        )
-      }
+        <ImageUpload user={user}/>
       </div>
-
     </div>   
   );
 }
