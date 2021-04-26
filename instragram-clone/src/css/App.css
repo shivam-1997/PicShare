@@ -6,6 +6,7 @@
   background-color:#fafafa;
   /* background-color:lightslategrey; */
   height: vh;
+  /* width: 95.5%; */
 }
 
 .app__header {
@@ -39,12 +40,18 @@
 
 .app__navigation {
   object-fit: contain;
-  position: sticky;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  position: fixed;
   bottom: 0;
+  margin-top: auto;
+  margin-bottom: 0;
   width: 100%;
   background-color: white;
   padding: 10px;
   border-top: 1px solid lightgray;
-  object-fit: contain;
   z-index: 1;
 }

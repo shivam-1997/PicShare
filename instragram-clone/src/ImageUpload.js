@@ -1,37 +1,13 @@
-import { Button, Modal } from '@material-ui/core';
-import React, {useState, useReducer} from 'react';
+import { Button } from '@material-ui/core';
+import React, {useState} from 'react';
 import {storage, db} from './firebase';
 import firebase from "firebase";
 import './css/ImageUpload.css'
-import { makeStyles } from '@material-ui/core/styles';
-
-
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 
 
 function ImageUpload({user}) {
 
   
-  const [uploadModal, toggleUploadModal] = useReducer(uploadModal=>!uploadModal, false);
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [caption, setCaption] = useState('');
@@ -81,32 +57,15 @@ function ImageUpload({user}) {
                     setProgress(0);
                     setCaption("");
                     setImage(null);
-                    toggleUploadModal();
                   });
           }
     )
   }
-                  
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
-  
+
   return (
     <div className="imageUpload">
 
-      <Modal
-        open={uploadModal}
-        onClose={toggleUploadModal}
-      >
-        <div style={modalStyle} className={classes.paper}>  
           <div className="imageUpload__modal">
-          <center>
-            <img
-              className="app__headerImage"
-              src="https://i.imgur.com/zqpwkLQ.png"
-              alt=""
-            />
-          </center>
           {
             (progress)?(
                 <progress className="imageUpload__progress" value={progress} max="100"/>
@@ -134,19 +93,6 @@ function ImageUpload({user}) {
             Upload
           </Button>
           </div>
-        </div>
-      </Modal>
-      
-      {
-        user?.displayName?(
-          <Button 
-            onClick={toggleUploadModal}
-            variant="contained"
-            color="primary"
-          >ADD POST</Button>
-        )
-        :(<center><h4>Login to post</h4></center>)
-      }     
     </div>
   );
 }
