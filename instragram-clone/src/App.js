@@ -204,7 +204,7 @@ function App() {
             (<Post
               key = {id} 
               postId = {id}
-              username={post.username}
+              postUsername={post.username}
               imageUrl={post.imageUrl}
               avatarImageUrl={post.avatarImageUrl}
               caption={post.caption}
