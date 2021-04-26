@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import './css/App.css';
-import Post from './Post';
-import {auth, db} from './firebase.js';
+import {auth} from './firebase.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
 import ImageUpload from './ImageUpload';
-
+import ProfilePage from './ProfilePage';
+import Feeds from './Feeds';
+import ActivityPage from './ActivityPage'
+import SearchPage from './SearchPage'
 
 function getModalStyle() {
   const top = 50;
@@ -32,24 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
-  const [posts, setPosts] = useState([]);
-    
-  useEffect(() => {
-    /*will run once for all the posts*/
-    db.collection("posts"/*name inside firebase db*/)
-        .orderBy('timestamp', 'desc')
-        .onSnapshot(snapshot => 
-          { /* onSnapshot acts as a listener */
-            setPosts(snapshot.docs.map(doc =>
-              ({ 
-                id: doc.id,
-                post: doc.data()
-              })
-            ));
-          }
-        )
-  },[]);
-
+  
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -74,7 +59,7 @@ function App() {
             // user has not logged in
             setUser(null)
           }
-        })
+        });
         return () =>{
           // perform some cleanup actions
           // will avoid duplicates
@@ -107,6 +92,8 @@ function App() {
     setSignInOpen(false);
   }
   
+  const [pageName, setPageName] = useState("feeds");
+
   return (
     <div className="App">
       
@@ -176,7 +163,7 @@ function App() {
         </div>
       </Modal>
 
-      {/* Header */}
+      {/* Header starts*/}
       <div className="app__header">
         
        <img
@@ -186,7 +173,7 @@ function App() {
        />
       {
         user ? (
-        <Button onClick={() => auth.signOut()}>SignOut</Button>
+          <Button onClick={() => auth.signOut()}>SignOut</Button>
         ):
         (
           <div className="app__logincontainer">
@@ -196,32 +183,66 @@ function App() {
         )
       }
       </div>
+      {/* Header ends*/}
+
       {
-        user?(
-          <div className="app__posts">
-          {
-            posts.map(({id, post}) => 
-            (<Post
-              key = {id} 
-              postId = {id}
-              postUsername={post.username}
-              imageUrl={post.imageUrl}
-              avatarImageUrl={post.avatarImageUrl}
-              caption={post.caption}
-              user={user}
-              timestamp={post.timestamp}
-              />)
-            )
+        user?.displayName?(
+          <>
+          {/* body starts */}
+          <div>
+          { 
+            (pageName === "feeds")?(
+              <Feeds user={user} />
+            ):(pageName === "post")?(
+              <ImageUpload user={user} />
+            ):(pageName === "activity")?(
+              <ActivityPage user={user} />
+            ):(pageName === "profile")?(
+              <ProfilePage user={user} />
+            ):(pageName === "search")?(
+              <SearchPage user={user}/>
+            ): (null)
           }
           </div>
-        ): (null)
-      }
+          {/* body ends */}
 
-      {/* Navigation bar */}
-      <div className="app__navigation">
-        <ImageUpload user={user}/>
-      </div>
+          {/* Navigation bar starts*/}
+          <div className="app__navigation">
+            <Button 
+              onClick={()=>setPageName("feeds")}
+              // variant="contained"
+              // color="primary"
+            >Feeds</Button>
 
+            <Button 
+              onClick={()=>setPageName("post")}
+              // variant="contained"
+              // color="primary"
+            >Post</Button>
+
+            <Button 
+              onClick={()=>setPageName("search")}
+              // variant="contained"
+              // color="primary"
+            >Search</Button>
+
+            <Button 
+              onClick={()=>setPageName("activity")}
+              // variant="contained"
+             // color="primary"
+            >Activity</Button>
+            
+            <Button 
+              onClick={()=>setPageName("profile")}
+            // variant="contained"
+            // color="primary"
+            >Profile</Button>
+          </div>
+          {/* Navigation bar ends */}
+          </>
+        ):(<center><h4>Login to post</h4></center>)
+      }     
+      {/* Navigation bar ends*/}
     </div>   
   );
 }

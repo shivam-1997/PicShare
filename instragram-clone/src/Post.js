@@ -4,31 +4,8 @@ import './css/Post.css';
 import Avatar from '@material-ui/core/Avatar';
 import {db} from './firebase.js';
 import firebase from "firebase";
+import Comment from "./Comment"
 
-function calculateAge(seconds){
-  var age = firebase.firestore.Timestamp.now().seconds-seconds // currenntly in secs
-  if(age<60){
-    return "seconds";
-  }
-  age = age/60; // currently in mins
-  if(age<60){
-    return (Math.floor(age)+" mins");
-  }
-  age = age/60; //currently in hrs
-  if(age<24){
-    return (Math.floor(age)+" hrs");
-  }
-  age = age/24; //currently in days
-  if(age<31){
-    return (Math.floor(age)+" days");
-  }
-  age = age/30; //currently in months 
-  if(age<12){
-    return (Math.floor(age)+" mths");
-  }
-  age = age/12; //currently in years
-  return (Math.floor(age)+" yrs");
-}
 function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, timestamp}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
@@ -66,18 +43,11 @@ function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, t
             username: user.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             edited: 0,
-            heartReactCount: 0
+            heartReactCount: 1
         });
     setComment('');
   }
-
-  function editPost(event){
-    return(null);
-  } 
-  function editComment(event){
-    return(null);
-  }
-  
+ 
   return (
     <div className="post">
         {/* header -> avatar + username */}
@@ -89,36 +59,20 @@ function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, t
             />
             <h3>{postUsername}</h3>
         </div>
-
-        {/* actual post/image */}
+        {/* image */}
         <img
             className = "post__image"
             src={imageUrl}
-            alt={imageUrl}
+            alt=""
         />
+        {/* Caption */}
         <div className="post__caption">
-          {/* username + caption + time */}
-          <p className="post__text">
-              <strong>{postUsername} </strong>
-              {caption}
-          </p>
-          <p>  
-            {/* Edit button */}
-            {
-              user &&  user.displayName && 
-              user.displayName===postUsername &&(
-                <button
-                  className="edit__button"
-                  type="submit"
-                  onClick={editPost}
-                >
-                  (Edit)
-                </button>
-              )
-            }
-            {/* Age */}
-            <text className="comment__age">{calculateAge(timestamp.seconds)} ago</text>
-          </p>
+          <Comment 
+            cUsername={postUsername} 
+            cText={caption}
+            cTimestamp={timestamp} 
+            user={user}
+          />
         </div> 
 
         {/********************************************/}
@@ -126,50 +80,14 @@ function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, t
         {/* username + comment + Edit + react + Age */}
         <div className="post__comments">
           {
-            comments.map(c=>(
-              <div className="post__comment">
-              {/* username + comment */}
-              <p> 
-                <strong>{c.username}</strong> {c.text}
-              </p>
-              {/* Edit button */}
-              <p>
-               {
-                  user &&  user.displayName && 
-                  user.displayName===c.username &&(
-                    <button
-                      className="edit__button"
-                      type="submit"
-                      onClick={editComment}
-                    >
-                      (Edit)
-                    </button>
-                  )
-                }
-                {/* React button */}
-                {
-                  (c.heartReactCount) && (c.heartReactCount > 0)?(
-                      <button
-                        className="edit__button"
-                        type="submit"
-                        // onClick={toggleHeartReactCount}
-                      >
-                        ❤️{c.heartReactCount}
-                      </button>
-                  ):(
-                    <button
-                      className="edit__button"
-                      type="submit"
-                      // onClick={toggleHeartReactCount}
-                    >
-                      💟 
-                    </button>
-                  )
-                }
-                {/* Age */}
-                <text className="comment__age">| {calculateAge(c.timestamp.seconds)} ago</text>
-                </p> 
-              </div>
+            comments.map(c=>(// find why curly braces fail here
+              <Comment 
+                cUsername={c.username} 
+                cText={c.text}
+                cTimestamp={c.timestamp} 
+                cType="comment"
+                user={user}
+              />
             ))
           }
         </div>
