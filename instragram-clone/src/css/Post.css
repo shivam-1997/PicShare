@@ -3,6 +3,8 @@
     width: 100%;
     max-width: 600px;
     background-color: white;
+    /* background-color: gray; */
+    /* border: 1px solid black; */
     border: 1px solid lightgray;
     /* margin-bottom: will separate out posts; */
     margin-bottom: 35px;

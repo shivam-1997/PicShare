@@ -1,0 +1,29 @@
+
+
+.imageUpload {
+    object-fit: contain;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+}
+
+.imageUpload__modal {
+    object-fit: contain;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    /* align-items: center; */
+}
+
+.imageUpload__progress {
+    margin-bottom: 2px;
+    width: 100%;
+}
