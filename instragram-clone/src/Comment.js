@@ -38,13 +38,6 @@ function Comment({ cUsername, cText, cTimestamp, cHeartReactCount, cType, user})
     cTimestamp = firebase.firestore.Timestamp.now()
   }
 
-  if(cType==="comment"){
-    console.log("adding comment", cUsername, cText);
-  }
-  else if(cType==="caption"){
-    console.log("adding caption", cUsername, cText);
-  }
-
   function editPost(event){
     return(null);
   } 
@@ -65,7 +58,6 @@ function Comment({ cUsername, cText, cTimestamp, cHeartReactCount, cType, user})
           </p>
           {/* React button */}
         {
-          console.log(cHeartReactCount),
           (cHeartReactCount) && (cHeartReactCount > 0)?(
             <button
               className="edit__button"

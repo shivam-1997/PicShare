@@ -1,0 +1,33 @@
+.profile{
+    max-width: 600px;
+    margin: auto;
+}
+
+.profile__grids{
+  max-width: inherit;
+  justify-content: space-evenly;
+  border-top: 1px solid lightgray;
+}
+
+.profile__navigation{
+    display: flex;
+    flex-direction: row;
+    justify-content: inherit;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.profile__postsGrid{
+  object-fit: contain;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: .5em;
+  grid-column-gap: .5em;
+}
+
+.gridImage{
+    height: 12em;
+    max-width: 12em;
+    margin: 0px;
+}

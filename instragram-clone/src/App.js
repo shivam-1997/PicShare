@@ -165,12 +165,21 @@ function App() {
 
       {/* Header starts*/}
       <div className="app__header">
-        
-       <img
-        className="app__headerImage"
-        src="https://i.imgur.com/zqpwkLQ.png"
-        alt=""
-       />
+        <div>
+          { 
+            (pageName === "feeds")?(
+              <h2>Instagram</h2>
+            ):(pageName === "post")?(
+              <h2>Upload</h2>
+            ):(pageName === "activity")?(
+              <h2>Activity</h2>
+            ):(pageName === "profile")?(
+              <h2>{user.displayName}</h2>
+            ):(pageName === "search")?(
+              <h2>Search</h2>
+            ): (null)
+          }
+          </div>
       {
         user ? (
           <Button onClick={() => auth.signOut()}>SignOut</Button>
@@ -198,14 +207,14 @@ function App() {
             ):(pageName === "activity")?(
               <ActivityPage user={user} />
             ):(pageName === "profile")?(
-              <ProfilePage user={user} />
+              <ProfilePage loggedInUser={user.displayName} searchedUser={user.displayName}/>
             ):(pageName === "search")?(
               <SearchPage user={user}/>
             ): (null)
           }
           </div>
           {/* body ends */}
-
+          <br/><br/>
           {/* Navigation bar starts*/}
           <div className="app__navigation">
             <Button 
