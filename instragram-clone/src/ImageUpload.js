@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {storage, db} from './firebase';
 import firebase from "firebase";
 import './css/ImageUpload.css'
+import ImageUploader from 'react-images-upload';
 
 
 function ImageUpload({user}) {
@@ -30,7 +31,7 @@ function ImageUpload({user}) {
       (snapshot) => {
         // progress function
         const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 10
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
           setProgress(progress);
         },
@@ -51,7 +52,9 @@ function ImageUpload({user}) {
                       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                       caption: caption,
                       imageUrl: url,
-                      username: user.displayName
+                      userId: user.uid,
+                      likeCount: 0,
+                      commentCount: 0
                     });
                     
                     setProgress(0);
@@ -61,6 +64,12 @@ function ImageUpload({user}) {
           }
     )
   }
+  var [state, setState] =  useState({ pictures: [] });
+  function onDrop(picture){
+    setState({
+        pictures: state.pictures.concat(picture),
+    });
+}
 
   return (
     <div className="imageUpload">
@@ -83,6 +92,13 @@ function ImageUpload({user}) {
           />
           {/* file picker */}
           <input type="file" onChange={handleChange} />
+          {/* <ImageUploader
+                withIcon={true}
+                buttonText='Choose images'
+                onChange={onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+          /> */}
           <br/>
           {/* post button */}
           <Button 

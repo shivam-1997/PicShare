@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './css/App.css';
-import {auth} from './firebase.js';
+import {auth, db} from './firebase.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
@@ -9,6 +9,8 @@ import ProfilePage from './ProfilePage';
 import Feeds from './Feeds';
 import ActivityPage from './ActivityPage'
 import SearchPage from './SearchPage'
+import firebase from "firebase";
+import Welcome from "./Welcome";
 
 function getModalStyle() {
   const top = 50;
@@ -72,14 +74,61 @@ function App() {
   const signUp =(event)=>{
     // prevent the page from reloading
     event.preventDefault();
-  
+    // authenticating user and creating entry in user table
+    // create user with email & password
+    // create user with Google
+    // create user with Phone number
+    // create user with Apple
     auth.createUserWithEmailAndPassword(email, password)
         .then((authUser)=>{
+          db.collection("users")
+            .doc(authUser.user.uid)
+            .collection("basicDetails")
+            .add({
+              creation_time: firebase.firestore.FieldValue.serverTimestamp(),
+              description: "",
+              followersCount: 0,
+              followingCount: 0,
+              postCount:0,
+              isActive: true,
+              isPrivate: false,
+              isProfessional: false,
+              username: authUser.user.displayName,
+              photoUrl:""
+            });
+          db.collection("users")
+            .doc(authUser.user.uid)
+            .collection("notification")
+            .add({
+              notifyViaEmail: true
+            })
+          db.collection("users")
+            .doc(authUser.user.uid)
+            .collection("pushNotification")
+            .add({
+              // likes: off, fromPeopleIFollow, everyone
+              likes: "everyone",
+              // Comments: off, fromPeopleIFollow, everyone
+              Comments: "everyone",
+               // commentLikes: off, fromPeopleIFollow
+              commentLikes: "fromPeopleIFollow",
+              // taggedPostUpdate: off, fromPeopleIFollow, everyone
+              taggedPostUpdate: "fromPeopleIFollow",
+              // acceptedFollowRequest: off, everyone
+              acceptedFollowRequest: "everyone"
+            })
+          
           return authUser.user.updateProfile({
             displayName: username
           })
         })
-        .catch((error)=> alert(error.message));
+        .catch(
+          (error)=> {
+            console.log(error.message);
+            alert("user creation failed");
+          }
+        );
+        
     setSignUpOpen(false);      
   }
 
@@ -88,7 +137,7 @@ function App() {
 
     auth.signInWithEmailAndPassword(email, password)
         .catch((error)=> alert(error.message));
-    
+
     setSignInOpen(false);
   }
   
@@ -96,20 +145,20 @@ function App() {
 
   return (
     <div className="App">
-      
+      {/* signup Modal */}
       <Modal
         open={signUpOpen}
         onClose={()=> setSignUpOpen(false)} /* Inline function */
       >
         <div style={modalStyle} className={classes.paper}>
-          <center>
-            <img
-            className="app__headerImage"
-            src="https://i.imgur.com/zqpwkLQ.png"
-            alt=""
-            />
-          </center> 
           <form className="app__signup">
+            <center><h2>SignUp</h2></center>
+            {/* first show following options/buttons
+                // create user with email & password
+                // create user with Google
+                // create user with Phone number
+                // create user with Apple
+            */}
             <Input
               placeholder="Email"
               type="text"
@@ -131,6 +180,7 @@ function App() {
             <Button type="submit" onClick={signUp}>Signup</Button>
           </form>
         </div>
+        
       </Modal>
 
       <Modal
@@ -166,18 +216,21 @@ function App() {
       {/* Header starts*/}
       <div className="app__header">
         <div>
-          { 
-            (pageName === "feeds")?(
-              <h2>Instagram</h2>
-            ):(pageName === "post")?(
-              <h2>Upload</h2>
-            ):(pageName === "activity")?(
-              <h2>Activity</h2>
-            ):(pageName === "profile")?(
-              <h2>{user.displayName}</h2>
-            ):(pageName === "search")?(
-              <h2>Search</h2>
-            ): (null)
+          { user?(
+              (pageName === "feeds")?(
+                <h2>Instagram</h2>
+              ):(pageName === "post")?(
+                <h2>Upload</h2>
+              ):(pageName === "activity")?(
+                <h2>Activity</h2>
+              ):(pageName === "profile")?(
+                <h2>{user.displayName}</h2>
+              ):(pageName === "search")?(
+                <h2>Search</h2>
+              ):(null)
+            ): (
+              <h2>Instagram</h2>   
+            )
           }
           </div>
       {
@@ -207,7 +260,7 @@ function App() {
             ):(pageName === "activity")?(
               <ActivityPage user={user} />
             ):(pageName === "profile")?(
-              <ProfilePage loggedInUser={user.displayName} searchedUser={user.displayName}/>
+              <ProfilePage user={user} searchedUser={user}/>
             ):(pageName === "search")?(
               <SearchPage user={user}/>
             ): (null)
@@ -249,7 +302,9 @@ function App() {
           </div>
           {/* Navigation bar ends */}
           </>
-        ):(<center><h4>Login to post</h4></center>)
+        ):(
+          <Welcome/>
+        )
       }     
       {/* Navigation bar ends*/}
     </div>   

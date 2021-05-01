@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProfilePage from './ProfilePage';
 import './css/Search.css';
 
@@ -6,6 +6,25 @@ function SearchPage({user}) {
 
 
   const [searchItem, setSearchItem] = useState('');
+  const [searchedUser, setSearchedUser] = useState(null);
+  useEffect(() => {
+    // only check if len of search item is >1
+    // db.collection("posts")
+    //   .where("username", "==", searchItem)
+    //     .orderBy('timestamp', 'desc')
+    //     .onSnapshot(snapshot => 
+    //       { /* onSnapshot acts as a listener */
+    //         setPosts(snapshot.docs.map(doc =>
+    //           ({ 
+    //             id: doc.id,
+    //             post: doc.data()
+    //           })
+    //         ));
+    //       }
+    //     )
+    console.log("searching " + searchItem +" using useEfect")
+  },[searchItem]);
+
   const [inSearch, setInSearch] = useState(false);
 
   return (
@@ -22,17 +41,11 @@ function SearchPage({user}) {
           }
           value={searchItem}
         />
-        <button
-          onClick={ () => setInSearch(true) }
-          variant="contained"
-        >
-          Search
-        </button>
       </div>
       {
         (inSearch===true)?(
-          console.log(user.displayName + " searched for: "+ searchItem),
-          <ProfilePage loggedInUser={user.displayName} searchedUser={searchItem} />
+          console.log(user.displayName + " searched for: "+ searchItem)
+          // <ProfilePage user={user} searchedUser={searchedUser} />
         ):(null)
       }
       <br />

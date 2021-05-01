@@ -5,10 +5,30 @@ import Avatar from '@material-ui/core/Avatar';
 import {db} from './firebase.js';
 import firebase from "firebase";
 import Comment from "./Comment"
+import { Button } from '@material-ui/core';
 
-function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, timestamp}) {
+// following keys of post are used in this function
+// username
+// caption
+// imageUrl
+// avatarImageUrl
+// timestamp
+// likeCount
+function Post({ postId, post, user}) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
+  const [likeStatus, setLikeStatus] = useState("LIKE");
+  // toggles user reaction to post
+  const likePost = (event) =>{
+    // todo: complete this function
+    event.preventDefault();
+    // db.collection("posts")
+    // .doc(postId)
+    // .update({
+    //     likeCount: post.likeCount+1 
+    // });
+    console.log(user.displayName + " liked " + postId)
+  }
   // read comments
   useEffect(() => {
     let unsubscribe;
@@ -43,34 +63,54 @@ function Post({ postId, postUsername, caption, imageUrl, avatarImageUrl, user, t
             username: user.displayName,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             edited: 0,
-            heartReactCount: 1
+            likeCount: 0
         });
     setComment('');
   }
  
+  
   return (
     <div className="post">
         {/* header -> avatar + username */}
         <div className="post__header">
             <Avatar
                 className="post__avatar"
-                alt={postUsername}
-                src={avatarImageUrl}
+                alt={post.username}
+                // todo: correct the avatar Image url
+                src="{avatarImageUrl}"
             />
-            <h3>{postUsername}</h3>
+            <h3>{post.username}</h3>
+            
         </div>
         {/* image */}
         <img
             className = "post__image"
-            src={imageUrl}
+            src={post.imageUrl}
             alt=""
         />
+        {/* like + comment + share */}
+        <div className="post__reactionBar">
+          <Button
+            onClick={likePost}
+          >
+            Like
+          </Button>
+          {/* todo */}
+          <Button>
+            Comment
+          </Button>
+          {/* todo */}
+          <Button>
+            Share
+          </Button>
+        </div>
         {/* Caption */}
         <div className="post__caption">
           <Comment 
-            cUsername={postUsername} 
-            cText={caption}
-            cTimestamp={timestamp} 
+            cUsername={post.username} 
+            cText={post.caption}
+            cTimestamp={post.timestamp} 
+            cType="caption"
             user={user}
           />
         </div> 

@@ -1,8 +1,17 @@
 .profile{
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
 }
-
+.profile__nonGrid{
+  display: flex;
+  margin: 20px;
+  justify-content: space-evenly;
+}
+.profile__stats{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 .profile__grids{
   max-width: inherit;
   justify-content: space-evenly;
@@ -22,12 +31,19 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: .5em;
-  grid-column-gap: .5em;
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
 }
 
 .gridImage{
-    height: 12em;
-    max-width: 12em;
+    height: 100%;
+    width: 100%;
     margin: 0px;
+}
+
+
+.profile__avatarOptions{
+  display: flex;
+  direction: column;
+  max-width: max-content;
 }

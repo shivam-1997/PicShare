@@ -29,16 +29,12 @@ function Feeds({user}) {
           <div className="app__posts">
           {
             posts.map(({id, post}) => 
-            (<Post
+            (<Post 
               key = {id} 
               postId = {id}
-              postUsername={post.username}
-              imageUrl={post.imageUrl}
-              avatarImageUrl={post.avatarImageUrl}
-              caption={post.caption}
+              post={post}
               user={user}
-              timestamp={post.timestamp}
-              />)
+             />)
             )
           }
           </div>
