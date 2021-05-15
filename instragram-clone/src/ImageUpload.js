@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {storage, db} from './firebase';
 import firebase from "firebase";
 import './css/ImageUpload.css'
-import ImageUploader from 'react-images-upload';
+// import ImageUploader from 'react-images-upload';
 
 
 function ImageUpload({user}) {
@@ -22,6 +22,7 @@ function ImageUpload({user}) {
   const handleUpload = () =>{
     // below statement uploads the image to storage
     // after this we would need to get the image url and work with it
+    console.log("handleUpload");
     if(image == null){
       return (<h1>"NO IMAGE"</h1>);
     }

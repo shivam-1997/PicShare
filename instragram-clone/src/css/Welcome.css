@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box;
+}
+
+.welcome__main {
+  min-height: vh;
+}
+
+input[type=text], select, textarea {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+input[type=email], select, textarea {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+input[type=password], select, textarea {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+
+
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+ 
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+/* 
+Login with google css
+*/
+.container
+{
+  padding:60px 15px;
+  font-family: 'Roboto', sans-serif;
+}
+.tile
+{
+  display:inline-block;
+  width:60%;
+  background-color: lightgray;
+  box-shadow:0px 0px 10px 3px rgba(0,0,0,0.1);
+  position:relative;
+  overflow:hidden;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+}
+a:focus,a:hover
+{
+  text-decoration: none;
+}
+a
+{
+  color: #333;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px 0px;
+}
+.form-control
+{
+  border-radius: 4px;
+  height: 40px;
+}
+.btn
+{
+  border-radius: 0px;
+  padding: 0px;
+  line-height: 40px;
+  font-size: 16px;
+  text-transform: uppercase;
+
+}
+.signup
+{
+  position: absolute;
+  top: 20px;
+  right: -67%;
+  overflow: hidden;
+  transform: rotate(90deg);
+  padding: 20px 20px 20px 60px;
+  transition: all .5s ease-out;
+}
+.login
+{
+  position: absolute;
+  top: 20px;
+  left: -67%;
+  overflow: hidden;
+  transform: rotate(-90deg);
+  padding: 20px 60px 20px 20px;
+  transition: all .5s ease-out;
+}
+.btn-block{
+  height: 40px;
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+  text-align: center;
+  background-color: orange;
+
+}
+.btn-goback{
+  height: 40px;
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */ 
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+  text-align: center;
+  background-color: lightblue;
+}
+.btn-signup
+{
+  border-radius: 10px;
+  position: absolute;
+  right: -1279px;
+  top: 179px;
+  width: 100px;
+  transform: rotate(90deg);
+  text-decoration:line-through;
+}
+.show
+{
+  position: relative!important;
+  width: 100%;
+  top: auto;
+  left: auto;
+  right: 0px;
+  transform: rotate(-0deg);
+  transition: all .5s ease-out;
+}
+.login.show
+{
+  left: 0;
+  right: auto;
+}
+.btn-login
+{
+  border-radius: 0px;
+  position: absolute;
+  left: -179px;
+  top: 179px;
+  width: 400px;
+  transform: rotate(90deg);
+  text-decoration:line-through;
+}
+.soc
+{
+  text-align: center;
+  margin: 20px 0px;
+}
+.soc a
+{
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  border:1px solid #ddd;
+  border-radius: 50%;
+  margin: 5px;
+  transition: all .5s;
+}
+.soc a.fa-facebook
+{
+  border-color: #4E71A8;
+  color: #4E71A8;
+}
+.soc a.fa-twitter
+{
+  border-color: #1CB7EB;
+  color: #1CB7EB;
+}
+.soc a.fa-linkedin
+{
+  border-color: #1686B0;
+  color: #1686B0;
+}
+.soc a:hover
+{
+  transform: rotate(360deg);
+}
+.logo
+{
+  display: block;
+  width: 60px;
+  margin: 0px auto 60px;
+}

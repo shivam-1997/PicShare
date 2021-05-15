@@ -4,7 +4,7 @@ import ComingSoon from './ComingSoon'
 import { db, storage } from './firebase';
 import './css/ProfilePage.css';
 import { makeStyles } from '@material-ui/core/styles';
-import ImageUploader from 'react-images-upload';
+// import ImageUploader from 'react-images-upload';
 
 
 function getModalStyle() {
